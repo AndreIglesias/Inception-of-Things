@@ -1,0 +1,55 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$master_script = <<-SCRIPT
+mkdir -p /root/.ssh
+cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys
+
+curl -sfL https://get.k3s.io | sh -s - server \
+    --write-kubeconfig-mode 644 \
+    --flannel-iface=eth1
+SCRIPT
+
+$worker_script = <<-SCRIPT
+mkdir -p /root/.ssh
+mv /tmp/id_rsa  /root/.ssh
+scp -o StrictHostKeyChecking=no root@192.168.42.110:/var/lib/rancher/k3s/server/token /tmp/token
+curl -sfL https://get.k3s.io | sh -s - agent \
+    --server "https://192.168.42.110:6443" \
+    --token-file "/tmp/token" \
+    --flannel-iface=eth1
+SCRIPT
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+
+  # First machine: Server
+  config.vm.define "server" do |server|
+    server.vm.hostname = "serverS"
+    server.vm.network "private_network", ip: "192.168.56.110"
+    server.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512"]
+      vb.customize ["modifyvm", :id, "--cpus", "1"]
+    end
+
+    server.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/tmp/id_rsa.pub"
+    server.vm.provision "shell", inline: $master_script
+  end
+
+  # Second machine: ServerWorker
+  config.vm.define "server_worker" do |server_worker|
+    server_worker.vm.hostname = "serverWorkerSW"
+    server_worker.vm.network "private_network", ip: "192.168.56.111"
+    server_worker.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512"]
+      vb.customize ["modifyvm", :id, "--cpus", "1"]
+    end
+    server_worker.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/tmp/id_rsa"
+    server_worker.vm.provision "shell", inline: $worker_script
+  end
+
+  # SSH configuration
+  # config.ssh.insert_key = false
+  # config.ssh.private_key_path = "~/.ssh/id_rsa"
+end
