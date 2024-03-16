@@ -1,5 +1,7 @@
 # Vagrant
 
+> [!NOTE] Vagrant is the command line utility for managing the lifecycle of virtual machines. Isolate dependencies and their configuration within a single disposable and consistent environment.
+
 To create the `Vagrantfile`, we need to search the desired *box* to install: [debian boxes](https://app.vagrantup.com/debian).
 
 After choosing the desired box, we proceed to initialize the vagrant project:
@@ -22,3 +24,9 @@ To make the changes effective while the vm is already up, we can use:
 ```bash
 vagrant reload --provision
 ```
+
+# K3S
+
+> [!Note] K3s is a lightweight Kubernetes distribution designed for resource-constrained environments.
+
+[K3s](/docs/k3s.svg)
