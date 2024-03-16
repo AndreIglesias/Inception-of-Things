@@ -12,7 +12,12 @@ Vagrant.configure("2") do |config|
   config.vm.box = "debian/bookworm64"
 
   # Synced Folder Configuration
-  config.vm.synced_folder "~/.ssh", "/host_ssh"
+  config.vm.synced_folder "~/.ssh", "/host_ssh"                  # To log with ssh keys
+  config.vm.synced_folder "/tmp", "/vagrant", type: "virtualbox" # To share the k3s token
+  config.vm.provision "shell", inline: <<-SHELL
+    DEBIAN_FRONTEND=noninteractive
+    sudo apt-get update && sudo apt-get install -y curl
+  SHELL
 
   # Server Master
   config.vm.define serverMaster do |server|
@@ -21,6 +26,9 @@ Vagrant.configure("2") do |config|
     server.vm.provision "shell", inline: <<-SHELL
       mkdir -p /root/.ssh
       cp /host_ssh/id_rsa.pub /root/.ssh/authorized_keys
+      cp /var/lib/rancher/k3s/server/node-token /vagrant/
+      
+      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --write-kubeconfig-mode 644 --flannel-iface=eth1" sh -
     SHELL
   end
 
@@ -31,6 +39,8 @@ Vagrant.configure("2") do |config|
     server_worker.vm.provision "shell", inline: <<-SHELL
       mkdir -p /root/.ssh
       cp /host_ssh/id_rsa.pub /root/.ssh/authorized_keys
+
+      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://#{IPMaster}:6443 --token-file /vagrant/node-token --flannel-iface=eth1" sh -
     SHELL
   end
 

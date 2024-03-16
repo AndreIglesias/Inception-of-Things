@@ -18,6 +18,7 @@ vagrant up
 # To test it is working, we can ssh into the vm
 vagrant ssh ciglesiaS
 vagrant ssh ciglesiaSW
+vagrant global-status
 ```
 
 To make the changes effective while the vm is already up, we can use:
@@ -26,9 +27,27 @@ To make the changes effective while the vm is already up, we can use:
 vagrant reload --provision
 ```
 
+To destroy the vm
+```bash
+vagrant destroy
+```
+
 # K3S
 
-> [!Note]
-> K3s is a lightweight Kubernetes distribution designed for resource-constrained environments.
+> [!NOTE]
+> [K3s](https://k3s.io/) is a lightweight Kubernetes distribution designed for resource-constrained environments.
 
+The server is configured in controller mode.
+The server worker is configured in agent mode.
 ![K3s](/docs/k3s.svg)
+
+Simple **server** and **Agent** setup:
+```bash
+sudo k3s server &
+# Kubeconfig is written to /etc/rancher/k3s/k3s.yaml
+sudo k3s kubectl get node
+
+# On a different node run the below command. 
+# NODE_TOKEN comes from /var/lib/rancher/k3s/server/node-token on your server
+sudo k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
+```
