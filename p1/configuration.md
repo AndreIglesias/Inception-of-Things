@@ -51,3 +51,8 @@ sudo k3s kubectl get node
 # NODE_TOKEN comes from /var/lib/rancher/k3s/server/node-token on your server
 sudo k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
 ```
+
+On the master server, we can check the K3s server API with:sudo k3s 
+```bash
+kubectl cluster-info
+```
