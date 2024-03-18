@@ -27,9 +27,9 @@ To make the changes effective while the vm is already up, we can use:
 vagrant reload --provision
 ```
 
-To destroy the vm
+To destroy the virtual machines
 ```bash
-vagrant destroy
+vagrant destroy -f
 ```
 
 # K3S
@@ -56,3 +56,11 @@ On the master server, we can check the K3s server API with:sudo k3s
 ```bash
 kubectl cluster-info
 ```
+
+# Nodes
+
+```bash
+kubectl get nodes -o wide
+```
+
+![p1](../docs/p1.png)
