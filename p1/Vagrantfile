@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
       mkdir -p /root/.ssh
       cp /host_ssh/id_rsa.pub /root/.ssh/authorized_keys
     SHELL
-    server.vm.provision "shell", path: "setup/k3s_master.sh"
+    server.vm.provision "shell", path: "scripts/k3s_master.sh"
   end
 
   # Server Worker
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
       mkdir -p /root/.ssh
       cp /host_ssh/id_rsa.pub /root/.ssh/authorized_keys
     SHELL
-    server_worker.vm.provision "shell", path: "setup/k3s_agent.sh"
+    server_worker.vm.provision "shell", path: "scripts/k3s_agent.sh"
   end
 
 end
