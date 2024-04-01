@@ -1,5 +1,64 @@
 # Inception-of-Things
 
-This project aims to introduce you to Kubernetes from a developer perspective.
-You will have to set up small clusters and discover the mechanics of continuous integration. 
-At the end of this project you will be able to have a working cluster in docker and have a usable continuous integration for your applications.
+This comprehensive project is designed to guide developers through the setup of a virtual environment for Kubernetes deployment using Vagrant, deploying K3s, understanding its Ingress feature, simplifying Kubernetes management with K3d, and implementing CI for working clusters in Docker. Whether you're a seasoned developer or just starting with Kubernetes, this project provides hands-on experience and improves your CI skills.
+
+## Prerequisites
+- [Vagrant](https://www.vagrantup.com/)
+- [VirtualBox](https://www.virtualbox.org/)
+
+## Part 1: Setting up a K3s cluster with Vagrant
+
+### Overview
+In this section, we'll create a Kubernetes cluster using K3s on virtual machines provisioned by Vagrant.
+
+<p align="center">  
+  <img src = "k3s.svg"> 
+</p>
+
+### Step-by-Step Guide
+1. Clone this repository.
+2. Run `vagrant up` in the project directory to create two VMs: `ciglesiaS` and `ciglesiaSW` with dedicated IPs.
+3. SSH into "ciglesiaS" VM using `vagrant ssh ciglesiaS`.
+4. Use `kubectl` commands to interact with the cluster.
+
+## Part 2: K3s and Three Simple Applications
+
+### Overview
+This part focuses on running three simple web applications within a K3s instance on a single virtual machine.
+
+<p align="center">  
+  <img src = "p2.png" width = "50%"> 
+</p>
+
+### Accessing Applications
+Depending on the host used when making a request to IP address 192.168.56.110, different applications will be displayed.
+
+### Manifest and Configuration
+1. Deployment: Manages Pods and ReplicaSets, ensuring the desired number of pod replicas.
+2. Services: Acts as a stable network interface to a dynamic set of Pods.
+3. Ingress: Routes external HTTP and HTTPS traffic to internal Services.
+
+## Part 3: K3d and Argo CD
+
+### Overview
+Part 3 involves setting up a k3d cluster on a virtual machine without using Vagrant. Continuous integration is implemented using Argo CD to deploy and update an application from a public GitHub repository.
+
+<p align="center">  
+  <img src = "p3.png" width = "50%"> 
+</p>
+
+### Steps to Follow
+1. Run the `install-tools.sh` script to install necessary packages and tools.
+2. Execute the `start.sh` script to set up the k3d cluster and argocd.
+
+### Additional Information
+- Vagrant commands:
+  - `vagrant init`: Initialize Vagrantfile
+  - `vagrant up`: Start virtual machines
+  - `vagrant ssh <machine name>`: Connect to the machine via SSH
+- Kubernetes commands:
+  - `kubectl get all -n [namespace-name]`: View resources in a specific namespace
+  - `kubectl describe [pod, ingress, etc.] -n [namespace-name]`: Show detailed information about a specific resource in some namespace
+  - `kubectl exec -it [pod-name] -- /bin/sh`: Access the Pod
+
+For more details, check out the respective parts in the repository: [Inception-of-Things](https://github.com/AndreIglesias/Inception-of-Things).
