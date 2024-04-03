@@ -1,12 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/env bash
 
-# Install k3s master
-echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> /home/vagrant/.profile
-curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE=644 k3S_CLUSTER_INIT=1 INSTALL_K3S_EXEC='--flannel-iface=eth1' sh -
+# Update system and install prerequisites
+install_prerequisites() {
+    export DEBIAN_FRONTEND=noninteractive
+    sudo apt-get update && sudo apt-get install -y curl
+}
 
-# Copy token to /vagrant
-sudo cp /var/lib/rancher/k3s/server/token /vagrant/
-sudo chown vagrant:vagrant /vagrant/token
+# Install Docker
+install_docker() {
+    curl -fsSL https://get.docker.com | sh
+}
 
 # Install kubectl
 install_kubectl() {
@@ -21,4 +24,17 @@ install_kubectl() {
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 }
 
-install_kubectl
+# Install k3d
+install_k3d() {
+    curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+    sudo k3d cluster create ciglesiaS
+}
+
+main() {
+    install_prerequisites
+    install_docker
+    install_kubectl
+    install_k3d
+}
+
+main
