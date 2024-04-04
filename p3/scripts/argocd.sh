@@ -26,14 +26,16 @@ install_argocd() {
     # Wait for all pods to be ready
     echo "⏱️ Waiting for all pods to be ready..."
     sudo kubectl wait --for=condition=ready --timeout=600s pod --all -n argocd
+    sudo kubectl get pods -n argocd
 
     # Get the password
     echo "🔑 Getting the ArgoCD password..."
     sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
     # Port forward the ArgoCD server
-    echo "🚀 Port forwarding the ArgoCD server..."
-    sudo kubectl port-forward svc/argocd-server -n argocd 8443:443 &
+    echo -e "\n🚀 Port forwarding the ArgoCD server..."
+    # sudo kubectl port-forward svc/argocd-server -n argocd 8443:443
+    sudo kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8443:443
 }
 
 # Main script
