@@ -15,6 +15,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/bin/bash -c 'while true; do if ! nc -z localhost $PORT; then sudo kubectl port-forward --address 0.0.0.0 svc/$SVC -n $NS $PORT:$FORWD; fi; sleep 1; done'
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
