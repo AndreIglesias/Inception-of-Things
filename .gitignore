@@ -5,6 +5,7 @@ token
 kubectl
 *.sha256
 *.vbox
+*.vbox-prev
 node-token
 ### Emacs ###
 # -*- mode: gitignore; -*-
