@@ -48,8 +48,23 @@ Part 3 involves setting up a k3d cluster on a virtual machine without using Vagr
 </p>
 
 ### Steps to Follow
-1. Run the `install-tools.sh` script to install necessary packages and tools.
-2. Execute the `start.sh` script to set up the k3d cluster and argocd.
+1. Run the `k3d.sh` script to install and set up the k3d cluster.
+2. Execute the `argocd.sh` script to set up ArgoCD and the application in Docker.
+
+The ArgoCD service runs on port `8443`, and the application (accessible via Kubernetes service) runs on port `8888`.
+
+To verify which version the server is currently running, use:
+```bash
+curl http://localhost:8888
+# This should return:
+{"status":"ok", "message": "v2"}
+```
+
+You can access the ArgoCD web interface by browsing to `http://localhost:8443`, which automates the synchronization of the containerized app version with the manifest found at [deploy.yaml](https://github.com/AndreIglesias/ciglesia/blob/main/manifests/deploy.yaml).
+
+<p align="center">  
+  <img src = "argocd.png" width = "100%"> 
+</p>
 
 ### Additional Information
 - Vagrant commands:
