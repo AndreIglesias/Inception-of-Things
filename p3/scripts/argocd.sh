@@ -43,11 +43,11 @@ create_namespaces() {
 install_argocd() {
     # The manifest was downloaded from the official ArgoCD GitHub repository
     # With the command (slow download):
-    # curl -sSL -o ../confs/argocd.yaml https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    # curl -sSL -o /vagrant/confs/argocd.yaml https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
     # Install ArgoCD
     echo "✨ Installing ArgoCD..."
-    sudo kubectl apply -n argocd -f ../confs/argocd.yaml
+    sudo kubectl apply -n argocd -f /vagrant/confs/argocd.yaml
 
     sleep 5
     # To verify the installation:
@@ -75,7 +75,7 @@ install_argocd() {
 deploy_app() {
     # deploy the app
     echo -e "\n✨ Deploying the app..."
-    sudo kubectl apply -f ../confs/deploy-app.yaml
+    sudo kubectl apply -f /vagrant/confs/deploy-app.yaml
     sleep 5
     sudo kubectl get pods -n dev
     # Wait for all pods to be ready

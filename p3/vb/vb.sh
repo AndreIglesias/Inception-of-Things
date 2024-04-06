@@ -31,9 +31,9 @@ VBoxManage startvm "$VM_NAME"
 # sudo systemctl start ssh
 
 mount_exec() {
-    mkdir vagrant
-    sudo mount -t vboxsf vagrant vagrant/
-    cd vagrant/scripts/
+    sudo mkdir /vagrant
+    sudo mount -t vboxsf vagrant /vagrant
+    cd /vagrant/scripts/
     echo 'VERSION_CODENAME=bookworm' | sudo tee -a /etc/os-release
-    ./k3d.sh && ./argocd.sh
+    sudo ./k3d.sh && ./argocd.sh
 }
