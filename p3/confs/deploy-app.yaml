@@ -1,5 +1,5 @@
 # https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/
-# https://argoproj.github.io/argo-cd/operator-manual/autosync/
+# https://redhat-scholars.github.io/argocd-tutorial/argocd-tutorial/04-syncwaves-hooks.html#deploying_the_application_hooks
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
