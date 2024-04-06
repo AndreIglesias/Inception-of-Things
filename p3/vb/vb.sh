@@ -8,6 +8,7 @@ PARENT_DIR=$(dirname "$PWD")
 
 # .vbox file
 VBOX_FILE="p3.vbox"
+# https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-virtualbox-amd64.7z
 
 # Create backup for .vbox
 if [ -f "$VBOX_FILE" ]; then
