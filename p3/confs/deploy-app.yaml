@@ -1,0 +1,30 @@
+# https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/
+# https://argoproj.github.io/argo-cd/operator-manual/autosync/
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wil-playground
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/andreiglesias/ciglesia.git
+    targetRevision: HEAD
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc # The server URL is the same as the one used by kubectl
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true # Automatically remove resources that are not in the Git repository
+      selfHeal: true # Automatically detect and repair out-of-sync resources
+
+
+# Automatic Prune:
+# By default (and as a safety mechanism), automated sync will not delete resources
+#  when Argo CD detects the resource is no longer defined in Git. To prune the resources, 
+#  a manual sync can always be performed (with pruning checked).
+
+# Automatic Self-Heal:
+# By default, changes that are made to the live cluster will not trigger automated sync.
