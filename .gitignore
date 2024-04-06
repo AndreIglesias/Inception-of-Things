@@ -7,6 +7,7 @@ kubectl
 *.vbox
 *.vbox-prev
 node-token
+manifest.yaml
 ### Emacs ###
 # -*- mode: gitignore; -*-
 *~

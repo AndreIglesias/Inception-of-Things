@@ -1,0 +1,37 @@
+# Ingress for routing traffic to services
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-apps  # Name of the ingress
+spec:
+  rules:
+  - host: app1.com  # Hostname for routing
+    http:
+      paths:
+      - path: /  # Path on the host
+        pathType: Prefix  # Type of path
+        backend:
+          service:
+            name: svc-app1  # Name of the service to route to
+            port:
+              number: 8888  # Port on the service
+  - host: app2.com  # Hostname for routing
+    http:
+      paths:
+      - path: /  # Path on the host
+        pathType: Prefix  # Type of path
+        backend:
+          service:
+            name: svc-app2  # Name of the service to route to
+            port:
+              number: 8888  # Port on the service
+  - host: app3.com  # Hostname for routing
+    http:
+      paths:
+      - path: /  # Path on the host
+        pathType: Prefix  # Type of path
+        backend:
+          service:
+            name: svc-app3  # Name of the service to route to
+            port:
+              number: 8888  # Port on the service
