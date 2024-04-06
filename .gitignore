@@ -1,5 +1,9 @@
 token
-debian*.iso
+*.vdi
+*.iso
+*.ovf
+kubectl
+*.sha256
 node-token
 ### Emacs ###
 # -*- mode: gitignore; -*-
