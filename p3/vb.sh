@@ -12,6 +12,7 @@ ARGOCD_SCRIPT="scripts/argocd.sh"
 # Forwarded ports
 PORT_1="8443"
 PORT_2="8888"
+PORT_3="8822"
 
 # Current directory
 CURRENT_DIR=$(pwd)
@@ -38,7 +39,7 @@ VBoxManage modifyvm "$VM_NAME" --cpus "$VM_CPUS"
 # Set box (use the Debian ISO)
 VBoxManage modifyvm "$VM_NAME" --ostype Debian_64
 VBoxManage storagectl "$VM_NAME" --name "SATA Controller" --add sata --controller IntelAHCI
-VBoxManage createmedium disk --filename "debian_disk.vdi" --size 10240  # Create a virtual disk to install Debian (adjust size as needed)
+VBoxManage createmedium disk --filename "debian_disk.vdi" --size 40480  # Create a virtual disk to install Debian (adjust size as needed)
 VBoxManage storageattach "$VM_NAME" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "debian_disk.vdi"
 
 VBoxManage storagectl $VM_NAME --name IDE --add ide --controller PIIX4 --bootable on
@@ -47,6 +48,7 @@ VBoxManage storageattach $VM_NAME --storagectl IDE --port 0 --device 0 --type dv
 # Define network ports
 VBoxManage modifyvm "$VM_NAME" --natpf1 "guest$PORT_1,tcp,,$PORT_1,,$PORT_1"
 VBoxManage modifyvm "$VM_NAME" --natpf1 "guest$PORT_2,tcp,,$PORT_2,,$PORT_2"
+VBoxManage modifyvm "$VM_NAME" --natpf1 "guest22,tcp,,$PORT_3,,22"
 
 # Mount current directory as /vagrant in the VM
 VBoxManage sharedfolder add "$VM_NAME" --name "vagrant" --hostpath "$CURRENT_DIR"
@@ -60,7 +62,13 @@ sleep 10  # Wait for VM to fully boot
 VBoxManage controlvm "$VM_NAME" keyboardputscancode 1c 9c  # Press Enter to boot from the ISO
 
 # Inside of the VM:
-# mkdir vagrant
-# mount -t vboxsf vagrant vagrant
-# cd vagrant/scripts
-# ./k3d.sh && ./argocd.sh
+# sudo apt install openssh-server
+# sudo passwd user
+#   set password to: user
+
+mount_exec() {
+    mkdir vagrant
+    sudo mount -t vboxsf vagrant vagrant/
+    cd vagrant/scripts/
+    sudo ./k3d.sh && sudo ./argocd.sh
+}

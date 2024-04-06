@@ -27,7 +27,7 @@ install_kubectl() {
 # Install k3d
 install_k3d() {
     curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
-    sudo k3d cluster create ciglesiaS # Testing
+    sudo k3d cluster create ciglesiaS
 }
 
 # Execute main script
