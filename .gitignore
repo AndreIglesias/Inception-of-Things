@@ -4,6 +4,7 @@ token
 *.ovf
 kubectl
 *.sha256
+*.vbox
 node-token
 ### Emacs ###
 # -*- mode: gitignore; -*-

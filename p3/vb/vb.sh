@@ -34,5 +34,6 @@ mount_exec() {
     mkdir vagrant
     sudo mount -t vboxsf vagrant vagrant/
     cd vagrant/scripts/
-    sudo ./k3d.sh && sudo ./argocd.sh
+    echo 'VERSION_CODENAME=bookworm' | sudo tee -a /etc/os-release
+    ./k3d.sh && ./argocd.sh
 }
