@@ -43,8 +43,46 @@ The host determines which application will be accessed.
 ```bash
 # From the host of the vm
 curl -H "Host:app1.com" localhost:8888
+curl -H "Host:app1.com" 192.168.56.110
 # From inside the vm
 curl -H "Host:app1.com" localhost
+```
+
+That will output:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Kubernetes!</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300" >
+</head>
+<body>
+
+  <div class="main">
+    <img src="/images/kubernetes.png"/>
+    <div class="content">
+      <div id="message">
+  Hello from app1.
+</div>
+<div id="info">
+  <table>
+    <tr>
+      <th>pod:</th>
+      <td>deploy-app1-544d9fdb76-nzn2z</td>
+    </tr>
+    <tr>
+      <th>node:</th>
+      <td>Linux (6.1.0-18-amd64)</td>
+    </tr>
+  </table>
+
+</div>
+    </div>
+  </div>
+
+</body>
+</html>
 ```
 
 <p align="center">  
