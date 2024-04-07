@@ -32,6 +32,8 @@ spec:
         - hostPort: 8888
           containerPort: 8080
 
+---
+
 EOF
 }
 
@@ -50,6 +52,8 @@ spec:
     - protocol: TCP  # Protocol for the port
       port: 8880  # Port exposed by the service
       targetPort: 8888  # Port on the pods
+
+---
 
 EOF
 }
