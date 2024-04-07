@@ -36,7 +36,11 @@ Depending on the host used when making a request to IP address 192.168.56.110, d
 ### Manifest and Configuration
 1. Deployment: Manages Pods and ReplicaSets, ensuring the desired number of pod replicas.
 2. Services: Acts as a stable network interface to a dynamic set of Pods.
-3. Ingress: Routes external HTTP and HTTPS traffic to internal Services.
+3. Ingress: Routes external HTTP traffic to internal Services.
+
+<p align="center">  
+  <img src = "curl.p2.png" width = "100%"> 
+</p>
 
 ## Part 3: K3d and Argo CD
 

@@ -29,8 +29,7 @@ spec:
           - name: MESSAGE
             value: "Hello from $APP."
         ports:
-        - hostPort: 8888
-          containerPort: 8080
+        - containerPort: 8080
 
 ---
 
@@ -50,8 +49,8 @@ spec:
     app: $APP  # Label selector for pods
   ports:
     - protocol: TCP  # Protocol for the port
-      port: 8880  # Port exposed by the service
-      targetPort: 8888  # Port on the pods
+      port: 8888  # Port exposed by the service
+      targetPort: 8080  # Port on the pods
 
 ---
 
