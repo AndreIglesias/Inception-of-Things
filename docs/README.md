@@ -33,10 +33,19 @@ This part focuses on running three simple web applications within a K3s instance
 ### Accessing Applications
 Depending on the host used when making a request to IP address 192.168.56.110, different applications will be displayed.
 
-### Manifest and Configuration
+### Manifests and Configuration
 1. Deployment: Manages Pods and ReplicaSets, ensuring the desired number of pod replicas.
 2. Services: Acts as a stable network interface to a dynamic set of Pods.
 3. Ingress: Routes external HTTP traffic to internal Services.
+
+The host determines which application will be accessed.
+
+```bash
+# From the host of the vm
+curl -H "Host:app1.com" localhost:8888
+# From inside the vm
+curl -H "Host:app1.com" localhost
+```
 
 <p align="center">  
   <img src = "curl.p2.png" width = "100%"> 

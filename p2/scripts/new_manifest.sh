@@ -69,7 +69,15 @@ main() {
     new_service "app2"
     new_service "app3"
 
+    # Generated manifest.yaml
+    cat /vagrant/confs/manifest.yaml
+
+    # Apply the manifest file
+    echo "Applying the manifest file..."
     kubectl apply -f /vagrant/confs/manifest.yaml
+
+    # Apply the ingress
+    echo "Applying the ingress..."
     kubectl apply -f /vagrant/confs/ingress.yaml
 }
 
