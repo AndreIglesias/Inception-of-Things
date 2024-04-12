@@ -1,4 +1,6 @@
-# Steps to test
+# P1
+
+## Steps to test
 
 - Run the virtual machines:
 `vagrant up`
@@ -13,7 +15,7 @@
  `kubectl get nodes -o wide`
 
 
-# Vagrant
+## Vagrant
 
 > [!NOTE]
 > Vagrant is the command line utility for managing the lifecycle of virtual machines. Isolate dependencies and their configuration within a single disposable and consistent environment.
@@ -53,7 +55,7 @@ To destroy the virtual machines
 vagrant destroy # -f (if not want to ask [y/N] for each machine)
 ```
 
-# K3S
+## K3S
 
 > [!NOTE]
 > [K3s](https://k3s.io/) is a lightweight Kubernetes distribution designed for resource-constrained environments.
@@ -86,7 +88,7 @@ On the master server, we can check the K3s server API with:sudo k3s
 kubectl cluster-info
 ```
 
-# Nodes
+## Nodes
 
 ```bash
 kubectl get nodes -o wide
