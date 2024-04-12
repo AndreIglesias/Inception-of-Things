@@ -25,7 +25,7 @@ spec:
             name: svc-app2  # Name of the service to route to
             port:
               number: 8888  # Port on the service
-  - host: app3.com  # Hostname for routing
+  - host:  # Any hostname for routing to app3 service
     http:
       paths:
       - path: /  # Path on the host
