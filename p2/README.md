@@ -65,22 +65,22 @@ This will output the app html
 
 ### With browser
 
-Install add-on "Modify Header Value".
+Install the "Modify Header Value" add-on in your browser.
 
 ![alt text](../docs/image-2.png)
 
-Set up the header for the ip.
+Set up the header for the IP.
 
 ![alt text](../docs/image-1.png)
 
-Acces from Host app1
+Access the applications from the host machine:
 
 ![alt text](../docs/image-app1.png)
 
-Acces from Host app2
+Accessing app2:
 
 ![alt text](../docs/image-app2.png)
 
-Acces app3
+Accessing app3:
 
 ![alt text](../docs/image.png)
