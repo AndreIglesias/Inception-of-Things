@@ -1,58 +1,67 @@
 # P1
 
+## Creating a Kubernetes Cluster with K3s on Virtual Machines Provisioned by Vagrant
+
+### Overview
+
+This guide walks through the process of setting up a Kubernetes cluster using K3s on virtual machines provisioned by Vagrant. K3s is a lightweight Kubernetes distribution designed for resource-constrained environments, making it ideal for testing and development purposes.
+
 ## Steps to test
 
 - Run the virtual machines:
-`vagrant up`
+```bash
+vagrant up
+```
 
 - Connect ssh to server master:
-`vagrant ssh ciglesiaS`
+```bash
+vagrant ssh ciglesiaS
+```
 
  - Verify ip addres:
- `ip addr | grep eth1`
+ ```bash
+ip addr | grep eth1
+```
 
  - Check the cluster:
- `kubectl get nodes -o wide`
+ ```bash
+kubectl get nodes -o wide
+```
 
 
 ## Vagrant
 
-> [!NOTE]
-> Vagrant is the command line utility for managing the lifecycle of virtual machines. Isolate dependencies and their configuration within a single disposable and consistent environment.
+Vagrant is a command-line utility for managing the lifecycle of virtual machines. It allows you to isolate dependencies and their configurations within a single, disposable, and consistent environment.
 
-Vagrant is a way to automate the creation and configuration of one or more virtual machine of virtualization products such as; VirtualBox, VMware Fusion, or Hyper-V.
+## Initializing the Vagrant Project
 
-The vagrant file where we describe our desired configuration is called a `Vagrantfile`.
-
-We want to install the latest debian, so we need to search our desired *box* to install here: [debian boxes](https://app.vagrantup.com/debian).
-
-After choosing the desired box, we proceed to initialize the vagrant project:
+To initialize the Vagrant project, choose the desired Debian box from [Debian Boxes](https://app.vagrantup.com/debian) and run:
 
 ```bash
 vagrant init debian/bookworm64
 ```
 
-Then to start the vagrant VM, we can run it with: 
+## Managing Virtual Machines
 
+- Start the Vagrant VM:
 ```bash
 vagrant up
-# To test it is working, we can ssh into the vm
+```
+- SSH into a VM:
+```bash
 vagrant ssh ciglesiaS
-# ssh root@192.168.56.110
-vagrant ssh ciglesiaSW
-# ssh root@192.168.56.111
+```
+- Check the status of active VMs:
+```bash
 vagrant global-status
 ```
-
-To make the changes effective, each time we modify our vagrant file while the vm is already up, we can use:
-
+- Reload the Vagrantfile and restart the VM:
 ```bash
 vagrant reload --provision
 ```
-
-To destroy the virtual machines
+- Destroy the virtual machines:
 ```bash
-vagrant destroy # -f (if not want to ask [y/N] for each machine)
+vagrant destroy -f
 ```
 
 ## K3S
@@ -72,6 +81,8 @@ K3s is like a mini-version of Kubernetes, the popular system for managing contai
 
 ![K3s](/docs/k3s.svg)
 
+### Installation
+
 Simple **server** and **Agent** setup:
 ```bash
 sudo k3s server &
@@ -83,18 +94,26 @@ sudo k3s kubectl get node
 sudo k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
 ```
 
-On the master server, we can check the K3s server API with:sudo k3s 
+### Checking Cluster Information
+
+Check the K3s server API:
+
+On the master server, we can check the K3s server API with:
 ```bash
 kubectl cluster-info
 ```
 
-## Nodes
+### Managing Nodes
+
+View nodes in the cluster:
 
 ```bash
 kubectl get nodes -o wide
 ```
 
 ![p1](../docs/p1.png)
+
+## Kubernetes Concepts
 
 | Concept               | Description                                                                                                                                                     | Example                                                                                                                                                                  |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -108,31 +127,24 @@ kubectl get nodes -o wide
 | Namespaces            | Logically partitions resources within a cluster, useful for organizing and isolating objects and resources.                                                     | Namespaces can be used to isolate resources for different teams or projects within a cluster, ensuring resource and access separation.                                   |
 | Persistent Volumes    | Provides persistent storage for stateful applications, representing physical storage resources, and requested by pods through Persistent Volume Claims.        | A Persistent Volume may represent a network-attached storage volume, and a Persistent Volume Claim can request storage of a certain size and access mode for a pod. |
 
-
+## Additional Commands
 ### Vagrant
 ```bash
-    vagrant init: Initialize the Vagrantfile.
-    vagrant up: Raise virtual machines.
-    vagrant destroy: Destroy virtual machines.
-    vagrant status: Show the current status of virtual machines.
-    vagrant global status: Show the status of active virtual machines.
-    vagrant validate: Check the validity of Vagrantfile.
-    vagrant ssh <machine name>: Connect to the machine via ssh.
-    vagrant suspend: Suspend the virtual machine.
-    vagrant resume: Resume a suspended virtual machine.
-    vagrant halt: Halt the running virtual machine.
-    vagrant reload: Reload the Vagrantfile and restart the virtual machine.
-    vagrant provision: Run the provisioning scripts on a running virtual machine.
+vagrant init            # Initialize the Vagrantfile.
+vagrant up              # Raise virtual machines.
+vagrant destroy         # Destroy virtual machines.
+vagrant global status   # Show the status of active virtual machines.
+vagrant reload          # Reload the Vagrantfile and restart the virtual machine.
 ```
 ### Kubectl
 ```bash
-    kubectl get all -n [namespace-name]: View all resources in a specific namespace.
-    kubectl get all --all-namespaces: View all resources in all namespaces.
-    kubectl get [pod, ingress, or another Kubernetes resource] -n [namespace-name] -o yaml: Show YAML manifest information about a specific Kubernetes resource in some namespace.
-    kubectl describe [pod, ingress, or another essence of k8s] -n [namespace-name]: Show detailed information about a specific Kubernetes resource in some namespace.
-    kubectl exec -it [pod-name] -- /bin/sh: Access the Pod.
-    kubectl apply -f [file.yaml]: Apply configuration from a YAML file.
-    kubectl delete [resource-name]: Delete a Kubernetes resource.
-    kubectl edit [resource-type] [resource-name]: Edit a Kubernetes resource in a text editor.
-    kubectl rollout restart deployment [deployment-name]: Restart a deployment.
+kubectl get all -n [namespace-name]                # View all resources in a specific namespace.
+kubectl get all --all-namespaces                   # View all resources in all namespaces.
+kubectl get [resource] -n [namespace] -o yaml      # Show YAML manifest information about a specific Kubernetes resource in a namespace.
+kubectl describe [resource] -n [namespace]         # Show detailed information about a specific Kubernetes resource in a namespace.
+kubectl exec -it [pod-name] -- /bin/sh             # Access the Pod.
+kubectl apply -f [file.yaml]                       # Apply configuration from a YAML file.
+kubectl delete [resource-name]                     # Delete a Kubernetes resource.
+kubectl edit [resource-type] [resource-name]       # Edit a Kubernetes resource in a text editor.
+kubectl rollout restart deployment [deployment-name]  # Restart a deployment.
 ```
