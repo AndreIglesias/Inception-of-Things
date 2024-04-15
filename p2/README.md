@@ -73,14 +73,16 @@ Set up the header for the IP.
 
 ![alt text](../docs/image-1.png)
 
-Access the applications from the host machine:
+### Accessing the applications from the host machine
+
+#### Accessing app2
 
 ![alt text](../docs/image-app1.png)
 
-Accessing app2:
+#### Accessing app2
 
 ![alt text](../docs/image-app2.png)
 
-Accessing app3:
+#### Accessing app3
 
 ![alt text](../docs/image.png)
