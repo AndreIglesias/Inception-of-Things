@@ -2,52 +2,55 @@
 
 ## How to test
 
-Run the application:
-```
-vagrant up
-```
+- Run the application:
+  ```
+  vagrant up
+  ```
 
-Acces on browser to argo:
-```
-localhost:8443
-```
+- Access on browser to argo:
+  ```
+  localhost:8443
+  ```
 
-![alt text](../docs/argo_login.png)
+  ![argoCD login](../docs/argo_login.png)
+  
+  ### User
+  ```
+  admin
+  ```
+  ### Password
+  ```
+  can be found when compiled, under "🔑 Getting the ArgoCD password..."
+  ```
+  
+  ![argoCD apps](../docs/argo_apps.png)
+  
+  You can choose "wil-playground" app
+  
+  ![argoCD](../docs/argocd.png)
 
-user:
-`admin`
+- Access the application on the browser:
+  
+  ```
+  http://localhost:8888
+  ```
 
-password:
-`can be found when compiled, under "🔑 Getting the ArgoCD password..."`
+- You can check out the version
 
-![alt text](../docs/argo_apps.png)
+  ![alt text](../docs/wil-playground.png)
 
-You can choose "wil-playground" app
+- Access the app with curl:
+  ```bash
+  curl localhost:8888
+  ```
+  This should return:  
+  ```bash
+  {"status":"ok", "message": "v2"}
+  ```
 
-![alt text](../docs/argocd.png)
-
-Access on browser to application:
-
-```
-http://localhost:8888
-```
-
-You can check out the version
-
-![alt text](../docs/wil-playground.png)
-
-Access the app with curl:
-```bash
-curl localhost:8888
-```
-
-```bash
-# This should return:
-{"status":"ok", "message": "v2"}
-```
-
-To change the version of the app you have to clone and modify the manifest here:
-`https://github.com/AndreIglesias/ciglesia`
+> [!NOTE]
+> To change the version of the app you have to clone and modify the manifest here:
+> `https://github.com/AndreIglesias/ciglesia`
 
 ### Difference between K3S and K3D
 
