@@ -15,6 +15,25 @@ if [ -f "$VBOX_FILE" ]; then
     cp "$VBOX_FILE" "$VBOX_FILE.bkp"
 fi
 
+ZIP_FILE="kali-linux-2024.1-virtualbox-amd64.7z"
+VDI_FILE="kali-linux-2024.1-virtualbox-amd64.vdi"
+
+if [[ ! -f "$ZIP_FILE" && ! -f "$VDI_FILE" ]]; then
+
+    curl -o "$ZIP_FILE" "https://kali.download/base-images/kali-2024.1/$ZIP_FILE"
+
+    # Check if download was successful
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to download $ZIP_FILE"
+        exit 1
+    fi
+fi
+
+if [ ! -f "$VDI_FILE" ]; then
+    docker run -v "$(pwd)":/data ubuntu bash -c "apt-get update && apt-get install -y p7zip-full && cd /data && 7z x $ZIP_FILE && ls -lR"
+    ln -s kali-linux-2024.1-virtualbox-amd64/$VDI_FILE .
+fi
+
 # Create VM
 VBoxManage registervm "$VBOX_FILE"
 
