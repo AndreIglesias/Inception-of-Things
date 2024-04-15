@@ -117,14 +117,6 @@ You can access the ArgoCD web interface by browsing to `http://localhost:8443`, 
   <img src = "argocd.png" width = "100%"> 
 </p>
 
-### Additional Information
-- Vagrant commands:
-  - `vagrant init`: Initialize Vagrantfile
-  - `vagrant up`: Start virtual machines
-  - `vagrant ssh <machine name>`: Connect to the machine via SSH
-- Kubernetes commands:
-  - `kubectl get all -n [namespace-name]`: View resources in a specific namespace
-  - `kubectl describe [pod, ingress, etc.] -n [namespace-name]`: Show detailed information about a specific resource in some namespace
-  - `kubectl exec -it [pod-name] -- /bin/sh`: Access the Pod
+---
 
 For more details, check out the respective parts in the repository: [Inception-of-Things](https://github.com/AndreIglesias/Inception-of-Things).
