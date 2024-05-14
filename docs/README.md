@@ -1,6 +1,6 @@
 # Inception-of-Things
 
-This comprehensive project is designed to guide developers through the setup of a virtual environment for Kubernetes deployment using Vagrant, deploying K3s, understanding its Ingress feature, simplifying Kubernetes management with K3d, and implementing CI for working clusters in Docker. Whether you're a seasoned developer or just starting with Kubernetes, this project provides hands-on experience and improves your CI skills.
+This comprehensive project is designed to guide developers through the setup of a virtual environment for Kubernetes deployment using Vagrant, deploying K3s, understanding its Ingress feature, simplifying Kubernetes management with K3d, and implementing CD for working clusters in Docker. Whether you're a seasoned developer or just starting with Kubernetes, this project provides hands-on experience and improves your CD skills.
 
 ## Prerequisites
 - [Vagrant](https://www.vagrantup.com/)
