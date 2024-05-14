@@ -92,7 +92,7 @@ That will output:
 ## Part 3: K3d and Argo CD
 
 ### Overview
-Part 3 involves setting up a k3d cluster on a virtual machine without using Vagrant. Continuous integration is implemented using Argo CD to deploy and update an application from a public GitHub repository.
+Part 3 involves setting up a k3d cluster on a virtual machine without using Vagrant. Continuous deployment is implemented using Argo CD to deploy and update an application from a public GitHub repository.
 
 <p align="center">  
   <img src = "p3.png" width = "50%"> 
